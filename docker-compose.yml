@@ -31,6 +31,7 @@ services:
       - NODE_ENV=production
       - WEBHOOK_URL=https://automation.nikivs.com/
       - GENERIC_TIMEZONE=Europe/Sofia
+      - N8N_TRUST_PROXY=true
     volumes:
       - n8n_data:/home/node/.n8n
       - ./local_files:/files
