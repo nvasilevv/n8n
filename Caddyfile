@@ -7,3 +7,8 @@ chat.nikivs.com {
     tls /etc/caddy/certs/origin.pem /etc/caddy/certs/private.key
     reverse_proxy librechat:3080
 }
+
+brain.nikivs.com {
+    # If you are using FastAPI, it runs on port 8000 by default
+    reverse_proxy brain-mcp:8000
+}
