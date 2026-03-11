@@ -5,6 +5,10 @@ volumes:
     external: true
   caddy_data:
   caddy_config:
+  mongodb_data:
+  meilisearch_data:
+  librechat_images:
+  librechat_logs:
 
 services:
   caddy:
@@ -20,6 +24,7 @@ services:
       - caddy_config:/config
     depends_on:
       - n8n
+      - librechat
 
   n8n:
     image: docker.n8n.io/n8nio/n8n
@@ -35,3 +40,41 @@ services:
     volumes:
       - n8n_data:/home/node/.n8n
       - ./local_files:/files
+
+  mongodb:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongodb_data:/data/db
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.7
+    restart: unless-stopped
+    environment:
+      - MEILI_MASTER_KEY=${LIBRECHAT_MEILI_MASTER_KEY}
+      - MEILI_NO_ANALYTICS=true
+    volumes:
+      - meilisearch_data:/meili_data
+
+  librechat:
+    image: ghcr.io/danny-avila/librechat:latest
+    restart: unless-stopped
+    environment:
+      - HOST=0.0.0.0
+      - PORT=3080
+      - MONGO_URI=mongodb://mongodb:27017/LibreChat
+      - MEILI_HOST=http://meilisearch:7700
+      - MEILI_MASTER_KEY=${LIBRECHAT_MEILI_MASTER_KEY}
+      - JWT_SECRET=${LIBRECHAT_JWT_SECRET}
+      - JWT_REFRESH_SECRET=${LIBRECHAT_JWT_REFRESH_SECRET}
+      - CREDS_KEY=${LIBRECHAT_CREDS_KEY}
+      - ALLOW_REGISTRATION=${LIBRECHAT_ALLOW_REGISTRATION}
+      - GOOGLE_KEY=${LIBRECHAT_GOOGLE_KEY}
+      - DOMAIN_CLIENT=https://chat.nikivs.com
+      - DOMAIN_SERVER=https://chat.nikivs.com
+    depends_on:
+      - mongodb
+      - meilisearch
+    volumes:
+      - librechat_images:/app/client/public/images
+      - librechat_logs:/app/api/logs

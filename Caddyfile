@@ -2,3 +2,8 @@ automation.nikivs.com, www.automation.nikivs.com {
     tls /etc/caddy/certs/origin.pem /etc/caddy/certs/private.key
     reverse_proxy n8n:5678
 }
+
+chat.nikivs.com {
+    tls /etc/caddy/certs/origin.pem /etc/caddy/certs/private.key
+    reverse_proxy librechat:3080
+}
