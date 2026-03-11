@@ -1,0 +1,61 @@
+version: 1.3.5
+cache: true
+
+interface:
+  modelSelect: true
+  parameters: true
+  sidePanel: true
+  multiConvo: true
+
+endpoints:
+  google:
+    titleConvo: true
+    titleModel: gemini-3.1-flash-lite-preview
+  agents:
+    capabilities:
+      - deferred_tools
+      - execute_code
+      - file_search
+      - web_search
+      - artifacts
+      - actions
+      - context
+      - tools
+      - chain
+      - ocr
+
+modelSpecs:
+  enforce: false
+  prioritize: true
+  list:
+    - name: gemini-coder-default
+      label: Gemini 3.1 Flash Lite (Code)
+      default: true
+      description: Fast coding profile with artifacts and code execution enabled.
+      preset:
+        endpoint: google
+        model: gemini-3.1-flash-lite-preview
+        temperature: 0.2
+      executeCode: true
+      artifacts: true
+
+    - name: nano-banana-2-image
+      label: Nano Banana 2 (Image)
+      description: Gemini image generation profile with gemini_image_gen enabled.
+      preset:
+        endpoint: google
+        model: gemini-2.5-flash-image
+        tools:
+          - gemini_image_gen
+      artifacts: true
+
+mcpServers:
+  n8n:
+    command: npx
+    args:
+      - "-y"
+      - "@n8n/mcp-server-n8n"
+      - "--host"
+      - "https://automation.nikivs.com"
+      - "--api-key"
+      - "${N8N_API_KEY}"
