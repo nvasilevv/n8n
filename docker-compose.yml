@@ -76,6 +76,7 @@ services:
       - DOMAIN_CLIENT=https://chat.nikivs.com
       - DOMAIN_SERVER=https://chat.nikivs.com
       - N8N_API_KEY=${N8N_API_KEY}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
     depends_on:
       - mongodb
       - meilisearch
