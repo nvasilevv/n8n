@@ -17,3 +17,8 @@ x3news.nikivs.com {
     tls /etc/caddy/certs/origin.pem /etc/caddy/certs/private.key
     reverse_proxy x3news-websocket:8765
 }
+
+obsidian.nikivs.com {
+    tls /etc/caddy/certs/origin.pem /etc/caddy/certs/private.key
+    reverse_proxy couchdb:5984
+}

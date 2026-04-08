@@ -32,7 +32,7 @@ jobs:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "docker-compose.yml,Caddyfile,librechat.yaml"
+          source: "docker-compose.yml,Caddyfile,librechat.yaml,couchdb/"
           target: "/root/n8n-server/"
 
       - name: 🔑 Write .env File
@@ -46,11 +46,13 @@ jobs:
           LIBRECHAT_MEILI_MASTER_KEY: ${{ secrets.LIBRECHAT_MEILI_MASTER_KEY }}
           N8N_API_KEY: ${{ secrets.N8N_API_KEY }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          COUCHDB_USER: ${{ secrets.COUCHDB_USER }}
+          COUCHDB_PASSWORD: ${{ secrets.COUCHDB_PASSWORD }}
         with:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          envs: LIBRECHAT_ALLOW_REGISTRATION,LIBRECHAT_CREDS_KEY,LIBRECHAT_GOOGLE_KEY,LIBRECHAT_JWT_REFRESH_SECRET,LIBRECHAT_JWT_SECRET,LIBRECHAT_MEILI_MASTER_KEY,N8N_API_KEY,OPENROUTER_API_KEY
+          envs: LIBRECHAT_ALLOW_REGISTRATION,LIBRECHAT_CREDS_KEY,LIBRECHAT_GOOGLE_KEY,LIBRECHAT_JWT_REFRESH_SECRET,LIBRECHAT_JWT_SECRET,LIBRECHAT_MEILI_MASTER_KEY,N8N_API_KEY,OPENROUTER_API_KEY,COUCHDB_USER,COUCHDB_PASSWORD
           script: |
             cat > /root/n8n-server/.env <<EOF
             LIBRECHAT_ALLOW_REGISTRATION=${LIBRECHAT_ALLOW_REGISTRATION}
@@ -61,6 +63,8 @@ jobs:
             LIBRECHAT_MEILI_MASTER_KEY=${LIBRECHAT_MEILI_MASTER_KEY}
             N8N_API_KEY=${N8N_API_KEY}
             OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+            COUCHDB_USER=${COUCHDB_USER}
+            COUCHDB_PASSWORD=${COUCHDB_PASSWORD}
             EOF
             chmod 600 /root/n8n-server/.env
 
