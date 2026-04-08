@@ -19,7 +19,6 @@ x3news.nikivs.com {
 }
 
 obsidian.nikivs.com {
-    tls /etc/caddy/certs/origin.pem /etc/caddy/certs/private.key
     reverse_proxy couchdb:5984 {
         header_up Host {upstream_hostport}
         flush_interval -1
