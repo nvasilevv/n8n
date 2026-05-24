@@ -64,7 +64,7 @@ mcpServers:
     command: npx
     args:
       - "-y"
-      - "n8n-mcp"
+      - "n8n-mcp@2.56.0"
     env:
       N8N_BASE_URL: "https://automation.nikivs.com"
       N8N_API_KEY: "${N8N_API_KEY}"
