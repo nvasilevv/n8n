@@ -83,6 +83,12 @@ jobs:
             # Create the data volume if it doesn't exist yet
             docker volume create n8n_data || true
 
+            # Free unused Docker layers before pulling large pinned image updates.
+            docker system df
+            docker image prune -af
+            docker builder prune -af
+
             # Pull the latest images and start the containers
             docker compose pull
             docker compose up -d --remove-orphans
+            docker image prune -af
