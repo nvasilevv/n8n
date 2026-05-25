@@ -63,7 +63,7 @@ services:
       - mongodb_data:/data/db
 
   meilisearch:
-    image: getmeili/meilisearch:v1.43.0
+    image: getmeili/meilisearch:v1.44.0
     restart: unless-stopped
     environment:
       - MEILI_MASTER_KEY=${LIBRECHAT_MEILI_MASTER_KEY}
