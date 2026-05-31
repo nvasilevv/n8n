@@ -44,7 +44,7 @@ services:
       - ./local_files:/files
 
   couchdb:
-    image: couchdb:3.5.1
+    image: couchdb:3.5.2
     restart: unless-stopped
     environment:
       - COUCHDB_USER=${COUCHDB_USER}
