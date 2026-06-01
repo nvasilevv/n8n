@@ -29,7 +29,7 @@ services:
       - default # keeps it connected to your old project's stuff
 
   n8n:
-    image: docker.n8n.io/n8nio/n8n:2.21.7
+    image: docker.n8n.io/n8nio/n8n:2.22.6
     restart: always
     environment:
       - N8N_HOST=automation.nikivs.com
