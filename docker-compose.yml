@@ -72,7 +72,7 @@ services:
       - meilisearch_data:/meili_data
 
   librechat:
-    image: ghcr.io/danny-avila/librechat:v0.8.5
+    image: ghcr.io/danny-avila/librechat:v0.8.6
     restart: unless-stopped
     environment:
       - HOST=0.0.0.0
