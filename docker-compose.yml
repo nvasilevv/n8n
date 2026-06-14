@@ -57,7 +57,7 @@ services:
       - web-proxy
 
   mongodb:
-    image: mongo:7.0.34-jammy
+    image: mongo:7.0.37-jammy
     restart: unless-stopped
     volumes:
       - mongodb_data:/data/db
